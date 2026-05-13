@@ -1,492 +1,1217 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bar Bolas — Mongaguá</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Tenor+Sans&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --ink:#0D0B08;--ink2:#1C1910;--ink3:#2A2620;
-  --amber:#B8893A;--amber-l:#D4A855;--amber-d:#8A6420;
-  --sand:#EDE4D0;--sand-l:#F7F2E8;--sand-d:#C8B99A;
-  --fog:#6B6050;--white:#FDFAF4;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar Bolas – O ponto certo do seu happy hour</title>
+  <meta name="description" content="Bar Bolas: petiscos, cervejas geladas, música ao vivo e o melhor happy hour da cidade!" />
+  
+  <!-- Configurações de URL e SEO -->
+  <link rel="canonical" href="https://www.bardobolas.com.br" />
+  <meta property="og:title" content="Bar Bolas – O ponto certo do seu happy hour" />
+  <meta property="og:description" content="Petiscos, cervejas geladas e música ao vivo em Mongaguá." />
+  <meta property="og:url" content="https://www.bardobolas.com.br" />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+/* === REMOVER MARCA D'ÁGUA DA PLATAFORMA (MANUS) === */
+[id*="manus"], [class*="manus"], a[href*="manus.space"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
-html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--sand);font-family:'Jost',sans-serif;font-weight:300;cursor:none;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:1000}
-#cursor{position:fixed;width:8px;height:8px;background:var(--amber);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
-#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(184,137,58,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:padding .5s,background .5s}
-nav.compact{padding:1.2rem 4rem;background:rgba(13,11,8,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(184,137,58,.1)}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--amber-l);letter-spacing:.06em;text-decoration:none}
-.nav-menu{display:flex;gap:3rem;list-style:none}
-.nav-menu a{font-family:'Tenor Sans',sans-serif;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sand-d);text-decoration:none;transition:color .25s;position:relative}
-.nav-menu a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--amber);transition:width .3s}
-.nav-menu a:hover{color:var(--amber-l)}
-.nav-menu a:hover::after{width:100%}
-.nav-cta{font-family:'Tenor Sans',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--amber);padding:.65rem 1.8rem;text-decoration:none;transition:background .25s}
-.nav-cta:hover{background:var(--amber-l)}
+/* ========================================
+   BAR BOLAS – style.css
+   Design: Rústico-moderno, cores quentes
+======================================== */
 
-/* HERO */
-.hero{min-height:100vh;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;background:var(--ink)}
-.hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:10rem 0 6rem 4rem;position:relative;z-index:2}
-.hero-eyebrow{font-family:'Tenor Sans',sans-serif;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--amber);margin-bottom:2.5rem;display:flex;align-items:center;gap:1rem}
-.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--amber);opacity:.7}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(5rem,8.5vw,8.5rem);font-weight:300;line-height:.92;letter-spacing:-.02em;color:var(--white)}
-.hero-h1 .line{display:block;overflow:hidden}
-.hero-h1 .line span{display:block;animation:lineUp 1.2s cubic-bezier(.16,1,.3,1) both}
-.hero-h1 .line:nth-child(1) span{animation-delay:.1s}
-.hero-h1 .line:nth-child(2) span{animation-delay:.28s}
-.hero-h1 .gold{color:var(--amber-l);font-style:italic}
-.hero-desc{margin-top:2.5rem;max-width:360px;font-size:.92rem;line-height:1.9;color:var(--fog);animation:fadeUp 1s ease .8s both}
-.hero-actions{margin-top:3rem;display:flex;align-items:center;gap:2.5rem;animation:fadeUp 1s ease 1s both}
-.btn-primary{background:var(--amber);color:var(--ink);font-family:'Tenor Sans',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:.95rem 2.5rem;text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;position:relative;overflow:hidden;transition:transform .3s}
-.btn-primary::after{content:'';position:absolute;inset:0;background:var(--amber-l);transform:translateX(-101%);transition:transform .45s cubic-bezier(.23,1,.32,1)}
-.btn-primary:hover::after{transform:translateX(0)}
-.btn-primary span,.btn-primary svg{position:relative;z-index:1}
-.btn-primary svg{transition:transform .3s}
-.btn-primary:hover svg{transform:translateX(4px)}
-.btn-ghost{font-family:'Tenor Sans',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sand-d);text-decoration:none;display:inline-flex;align-items:center;gap:.7rem;transition:color .25s}
-.btn-ghost:hover{color:var(--amber-l)}
-.hero-right{position:relative;overflow:hidden;background:linear-gradient(135deg,#1A1206 0%,#2E1E08 60%,#1C1408 100%)}
-.geo-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.geo-ring{position:absolute;border-radius:50%;border:1px solid rgba(184,137,58,.1)}
-.geo-ring:nth-child(1){width:500px;height:500px;animation:slowSpin 40s linear infinite}
-.geo-ring:nth-child(2){width:340px;height:340px;animation:slowSpin 28s linear infinite reverse;border-color:rgba(184,137,58,.18)}
-.geo-ring:nth-child(3){width:180px;height:180px;animation:slowSpin 18s linear infinite;border-color:rgba(184,137,58,.3)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,transparent 100%);z-index:1}
-.hero-badge{position:absolute;bottom:3.5rem;right:3.5rem;z-index:3;width:120px;height:120px;border-radius:50%;background:var(--amber);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:rotateBadge 22s linear infinite}
-.badge-inner{display:flex;flex-direction:column;align-items:center;animation:rotateBadge 22s linear infinite reverse}
-.badge-n{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;color:var(--ink);line-height:1}
-.badge-n sup{font-size:.9rem}
-.badge-l{font-family:'Tenor Sans',sans-serif;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink);opacity:.75;margin-top:.25rem;line-height:1.4}
-.hero-scroll{position:absolute;bottom:3rem;left:4rem;z-index:5;display:flex;flex-direction:column;align-items:center;gap:.8rem}
-.scroll-line{width:1px;height:55px;background:linear-gradient(to bottom,var(--amber),transparent);animation:scrollP 2.5s ease infinite}
-.scroll-txt{font-family:'Tenor Sans',sans-serif;font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;color:var(--fog);writing-mode:vertical-rl}
-
-/* TICKER */
-.ticker{overflow:hidden;border-top:1px solid rgba(184,137,58,.13);border-bottom:1px solid rgba(184,137,58,.13);background:var(--ink2);padding:.85rem 0}
-.ticker-track{display:flex;white-space:nowrap;animation:tickerAnim 28s linear infinite}
-.ticker-item{display:inline-flex;align-items:center;gap:1.5rem;padding:0 3rem;font-family:'Tenor Sans',sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--fog)}
-.tick-dot{width:4px;height:4px;background:var(--amber);border-radius:50%;flex-shrink:0}
-
-/* SOBRE */
-.sobre{padding:10rem 4rem;display:grid;grid-template-columns:1fr 2fr;gap:8rem;align-items:start;position:relative}
-.sobre::before{content:'';position:absolute;top:0;left:4rem;right:4rem;height:1px;background:linear-gradient(to right,var(--amber-d),transparent)}
-.sobre-num{font-family:'Cormorant Garamond',serif;font-size:8rem;font-weight:300;color:rgba(184,137,58,.09);line-height:1;position:sticky;top:8rem}
-.stag{font-family:'Tenor Sans',sans-serif;font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--amber);margin-bottom:1.8rem;display:flex;align-items:center;gap:1.2rem}
-.stag::before{content:'';width:28px;height:1px;background:var(--amber)}
-.sobre-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,4vw,4.2rem);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:2.5rem}
-.sobre-title em{font-style:italic;color:var(--amber-l)}
-.sobre-body p{font-size:.96rem;line-height:2;color:var(--fog);font-weight:300;margin-bottom:1.4rem}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:5rem;border:1px solid rgba(184,137,58,.13)}
-.metric{padding:2.5rem 2rem;border-right:1px solid rgba(184,137,58,.13);transition:background .3s}
-.metric:last-child{border-right:none}
-.metric:hover{background:rgba(184,137,58,.04)}
-.metric-val{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--amber-l);line-height:1;margin-bottom:.6rem}
-.metric-val sup{font-size:1.1rem}
-.metric-lbl{font-family:'Tenor Sans',sans-serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
-
-/* CARDS */
-.cards-section{background:var(--ink2);padding:8rem 4rem}
-.cards-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:5rem;padding-bottom:2rem;border-bottom:1px solid rgba(184,137,58,.1)}
-.cards-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,3.8vw,3.8rem);font-weight:300;color:var(--white);line-height:1.05}
-.cards-title em{font-style:italic;color:var(--amber-l)}
-.cards-sub{font-size:.82rem;color:var(--fog);max-width:200px;line-height:1.7;text-align:right}
-.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.ccard{background:var(--ink3);padding:3rem 2.5rem;position:relative;overflow:hidden;transition:background .4s;border:1px solid rgba(184,137,58,.05)}
-.ccard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.23,1,.32,1)}
-.ccard:hover{background:rgba(42,38,32,.95)}
-.ccard:hover::after{transform:scaleX(1)}
-.ccard-idx{position:absolute;top:2rem;right:2rem;font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(184,137,58,.09);line-height:1}
-.ccard-icon{font-size:2rem;margin-bottom:1.8rem;display:block;transition:transform .3s}
-.ccard:hover .ccard-icon{transform:scale(1.08)}
-.ccard h3{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600;color:var(--sand);margin-bottom:.9rem;line-height:1.2}
-.ccard p{font-size:.86rem;line-height:1.88;color:var(--fog);font-weight:300}
-
-/* REVIEW */
-.review{padding:9rem 4rem;position:relative;overflow:hidden;text-align:center}
-.review::before{content:'\201C';position:absolute;top:-4rem;left:1rem;font-family:'Cormorant Garamond',serif;font-size:28rem;font-weight:600;color:rgba(184,137,58,.035);line-height:1;pointer-events:none}
-.review-inner{max-width:820px;margin:0 auto;position:relative;z-index:1}
-.review-stars{display:flex;justify-content:center;gap:.35rem;margin-bottom:2.5rem}
-.review-stars span{color:var(--amber);font-size:1.1rem}
-.review-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.55rem,3.2vw,2.5rem);font-weight:300;font-style:italic;color:var(--white);line-height:1.5;margin-bottom:3rem}
-.review-byline{}
-.review-name{font-family:'Tenor Sans',sans-serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--amber);margin-bottom:.4rem}
-.review-source{font-size:.78rem;color:var(--fog)}
-.review-sep{display:flex;align-items:center;gap:2rem;justify-content:center;margin:5rem 0}
-.sep-line{flex:1;max-width:100px;height:1px;background:rgba(184,137,58,.18)}
-.sep-diamond{width:7px;height:7px;background:var(--amber);transform:rotate(45deg)}
-.review-nums{display:flex;justify-content:center;gap:5rem;flex-wrap:wrap}
-.rn-val{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--amber-l);line-height:1;margin-bottom:.4rem}
-.rn-lbl{font-family:'Tenor Sans',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fog)}
-
-/* LOCAL */
-.local{padding:8rem 4rem;background:var(--ink2);position:relative}
-.local::before{content:'';position:absolute;top:0;left:4rem;right:4rem;height:1px;background:linear-gradient(to right,var(--amber-d),transparent)}
-.local-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:7rem;align-items:start}
-.local-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,3.8vw,3.8rem);font-weight:300;color:var(--white);line-height:1.05;margin-bottom:3.5rem}
-.local-title em{font-style:italic;color:var(--amber-l)}
-.irow{display:flex;gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid rgba(184,137,58,.09)}
-.irow-icon{width:34px;height:34px;flex-shrink:0;border:1px solid rgba(184,137,58,.22);display:flex;align-items:center;justify-content:center;margin-top:2px}
-.irow-icon svg{width:15px;height:15px;stroke:var(--amber);fill:none;stroke-width:1.5}
-.irow-lbl{font-family:'Tenor Sans',sans-serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem}
-.irow-val{font-size:.9rem;line-height:1.7;color:var(--sand-d);font-weight:300}
-.hor-table{width:100%}
-.hor-table tr{border-bottom:1px solid rgba(184,137,58,.07)}
-.hor-table td{padding:.85rem 0;font-size:.86rem;font-weight:300}
-.hor-table td:first-child{color:var(--fog)}
-.hor-table td:last-child{color:var(--sand);text-align:right}
-.map-wrap{border:1px solid rgba(184,137,58,.14);overflow:hidden;height:460px;position:relative}
-.map-wrap::before{content:'LOCALIZAÇÃO';position:absolute;top:1rem;left:50%;transform:translateX(-50%);font-family:'Tenor Sans',sans-serif;font-size:.52rem;letter-spacing:.3em;color:var(--amber);z-index:2;background:var(--ink2);padding:.3rem .8rem}
-.map-wrap iframe{width:100%;height:100%;border:0;filter:saturate(.45) contrast(1.1) brightness(.75) sepia(.25);display:block}
-
-/* FOOTER */
-footer{background:var(--ink);border-top:1px solid rgba(184,137,58,.1);padding:5rem 4rem 3rem}
-.footer-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:5rem;padding-bottom:4rem;border-bottom:1px solid rgba(184,137,58,.08);margin-bottom:3rem}
-.f-logo{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;color:var(--amber-l);line-height:1;margin-bottom:.4rem}
-.f-sub{font-family:'Tenor Sans',sans-serif;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--fog);margin-bottom:1.5rem}
-.f-desc{font-size:.86rem;line-height:1.85;color:var(--fog);font-weight:300;max-width:270px}
-.f-col-title{font-family:'Tenor Sans',sans-serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:1.6rem}
-.f-links{display:flex;flex-direction:column;gap:.85rem}
-.f-links a{font-size:.86rem;color:var(--fog);text-decoration:none;transition:color .25s;font-weight:300}
-.f-links a:hover{color:var(--amber-l)}
-.footer-bottom{display:flex;justify-content:space-between;align-items:center}
-.f-copy{font-size:.73rem;color:var(--fog)}
-.f-trip{font-size:.73rem;color:var(--fog);display:flex;gap:.5rem;align-items:center}
-.f-trip strong{color:var(--amber)}
-
-/* ANIMATIONS */
-@keyframes lineUp{from{transform:translateY(110%)}to{transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes scrollP{0%,100%{opacity:.3}50%{opacity:1}}
-@keyframes slowSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes rotateBadge{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes tickerAnim{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.reveal.in{opacity:1;transform:none}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
-
-@media(max-width:900px){
-  nav{padding:1.5rem 1.5rem}nav.compact{padding:1rem 1.5rem}
-  .nav-menu,.nav-cta{display:none}
-  .hero{grid-template-columns:1fr}.hero-right{display:none}
-  .hero-left{padding:8rem 1.5rem 5rem}
-  .sobre,.cards-section,.review,.local{padding:5rem 1.5rem}
-  .sobre{grid-template-columns:1fr;gap:3rem}.sobre-num{display:none}
-  .metrics{grid-template-columns:1fr 1fr}.metrics .metric:nth-child(2){border-right:none}.metrics .metric:nth-child(3){border-top:1px solid rgba(184,137,58,.13);grid-column:1/-1}
-  .cards-head{flex-direction:column;align-items:flex-start;gap:1.5rem}.cards-sub{text-align:left}
-  .cgrid{grid-template-columns:1fr}
-  .local-grid{grid-template-columns:1fr;gap:4rem}
-  .footer-top{grid-template-columns:1fr;gap:3rem}
-  footer{padding:4rem 1.5rem 2.5rem}
-  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+/* === VARIÁVEIS E RESET === */
+:root {
+  --laranja:       #E8611A;
+  --laranja-hover: #c9511a;
+  --amarelo:       #F5A623;
+  --amarelo-claro: #FFD166;
+  --preto:         #1A1208;
+  --preto-soft:    #2C2217;
+  --marrom:        #5C3D2E;
+  --madeira:       #8B6046;
+  --creme:         #FFF8EE;
+  --creme-escuro:  #F3E8D5;
+  --cinza-texto:   #5A4A3A;
+  --branco:        #FFFFFF;
+  --verde-wa:      #25D366;
+  --sombra:        0 4px 20px rgba(26,18,8,.15);
+  --sombra-forte:  0 8px 40px rgba(26,18,8,.25);
+  --radius:        12px;
+  --radius-lg:     20px;
+  --trans:         0.3s ease;
+  --font-display:  'Bebas Neue', sans-serif;
+  --font-body:     'Nunito', sans-serif;
 }
-</style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--creme);
+  color: var(--preto);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a  { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* === UTILITÁRIOS === */
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section { padding: 90px 0; }
+
+.section-tag {
+  display: inline-block;
+  background: var(--amarelo-claro);
+  color: var(--marrom);
+  font-weight: 800;
+  font-size: .78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+}
+
+.section-tag.center { display: block; text-align: center; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: 1px;
+  line-height: 1.1;
+  color: var(--preto);
+  margin-bottom: 32px;
+}
+.section-title.center { text-align: center; }
+
+/* === BOTÕES === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform var(--trans), box-shadow var(--trans), background var(--trans);
+  border: none;
+}
+
+.btn-primary {
+  background: var(--laranja);
+  color: var(--branco);
+}
+.btn-primary:hover {
+  background: var(--laranja-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(232,97,26,.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--branco);
+  border: 2px solid rgba(255,255,255,.7);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,.15);
+  transform: translateY(-2px);
+}
+
+
+
+/* === HEADER === */
+#header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0;
+  transition: background var(--trans), box-shadow var(--trans), padding var(--trans);
+}
+
+#header.scrolled {
+  background: rgba(26,18,8,.97);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0,0,0,.3);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon { font-size: 1.8rem; }
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: var(--branco);
+  text-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  color: rgba(255,255,255,.85);
+  font-weight: 700;
+  font-size: .95rem;
+  padding: 8px 16px;
+  border-radius: 50px;
+  transition: color var(--trans), background var(--trans);
+}
+.nav-link:hover {
+  color: var(--amarelo-claro);
+  background: rgba(255,255,255,.1);
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.hamburger span {
+  width: 26px;
+  height: 2px;
+  background: var(--branco);
+  border-radius: 2px;
+  transition: transform var(--trans), opacity var(--trans);
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* === HERO === */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--preto-soft) url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1920') no-repeat center center/cover;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(26,18,8,.82) 0%,
+    rgba(92,61,46,.7) 50%,
+    rgba(26,18,8,.88) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  max-width: 760px;
+}
+
+.hero-eyebrow {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--amarelo-claro);
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 14vw, 9rem);
+  letter-spacing: 4px;
+  line-height: .95;
+  color: var(--branco);
+  text-shadow: 0 4px 30px rgba(0,0,0,.4);
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: rgba(255,255,255,.9);
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Badge flutuante */
+.hero-badge {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 2;
+  background: var(--amarelo);
+  color: var(--preto);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  box-shadow: var(--sombra-forte);
+  animation: float 3s ease-in-out infinite;
+}
+.hero-badge strong { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 1px; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* === SOBRE === */
+.sobre { background: var(--branco); }
+
+.sobre-grid {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sobre-text p {
+  color: var(--cinza-texto);
+  margin-bottom: 16px;
+  font-size: 1.05rem;
+}
+
+.sobre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+  justify-content: center;
+}
+.sobre-tags span {
+  background: var(--creme-escuro);
+  color: var(--marrom);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: .88rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* === DESTAQUES === */
+.destaques { background: var(--preto-soft); }
+.destaques .section-tag { background: rgba(245,166,35,.2); color: var(--amarelo-claro); }
+.destaques .section-title { color: var(--branco); }
+
+.destaques-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.destaque-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: background var(--trans), transform var(--trans), border-color var(--trans);
+}
+.destaque-card:hover {
+  background: rgba(255,255,255,.09);
+  transform: translateY(-4px);
+  border-color: rgba(245,166,35,.3);
+}
+.destaque-card h3 { color: var(--branco); font-size: 1.1rem; margin: 14px 0 8px; }
+.destaque-card p  { color: rgba(255,255,255,.6); font-size: .95rem; }
+
+.destaque-icon {
+  width: 54px; height: 54px;
+  background: linear-gradient(135deg, var(--laranja), var(--amarelo));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  color: var(--branco);
+}
+
+/* === SERVIÇOS === */
+.servicos { background: var(--branco); }
+
+.servicos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.servico-card {
+  background: var(--creme);
+  border-radius: var(--radius);
+  padding: 30px 24px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all var(--trans);
+}
+.servico-card:hover {
+  border-color: var(--laranja);
+  transform: translateY(-4px);
+}
+.servico-card i {
+  font-size: 2rem;
+  color: var(--laranja);
+  margin-bottom: 14px;
+}
+.servico-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.servico-card p  { font-size: .9rem; color: var(--cinza-texto); }
+
+.servico-card.sem-reserva {
+  background: #FFF3F3;
+  border-color: #FFD0D0;
+}
+.servico-card.sem-reserva i { color: #C0392B; }
+
+/* Acessibilidade */
+.acessibilidade {
+  background: linear-gradient(135deg, var(--preto), var(--preto-soft));
+  color: var(--branco);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-bottom: 36px;
+}
+.acessibilidade h3 {
+  font-size: 1.3rem;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--amarelo-claro);
+}
+.aces-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.aces-grid span {
+  background: rgba(255,255,255,.08);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.aces-grid span i { color: var(--verde-wa); }
+
+/* Ambiente e pagamentos */
+.ambiente-pagamento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.ambiente-box, .pagamento-box {
+  background: var(--creme-escuro);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.ambiente-box h3, .pagamento-box h3 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ambiente-box h3 i, .pagamento-box h3 i { color: var(--laranja); }
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tags-row span {
+  background: var(--branco);
+  border-radius: 50px;
+  padding: 6px 14px;
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--marrom);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* === CONTATO === */
+.contato { background: var(--creme-escuro); }
+
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.info-card {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  background: var(--branco);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--sombra);
+  transition: transform var(--trans);
+}
+.info-card:hover { transform: translateX(4px); }
+.info-card > i {
+  font-size: 1.4rem;
+  color: var(--laranja);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.info-card h4 { font-size: .85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--madeira); margin-bottom: 6px; }
+.info-card p  { color: var(--cinza-texto); font-size: .97rem; }
+.info-card small {
+  display: block;
+  margin-top: 8px;
+  color: var(--laranja-hover);
+  font-weight: 700;
+  font-size: .82rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.horario-table { width: 100%; border-collapse: collapse; }
+.horario-table td { padding: 4px 0; font-size: .93rem; color: var(--cinza-texto); }
+.horario-table td:last-child { text-align: right; font-weight: 700; color: var(--preto); }
+
+.mapa {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 440px;
+  box-shadow: var(--sombra-forte);
+}
+.mapa iframe { display: block; }
+
+/* === FOOTER === */
+.footer {
+  background: var(--preto);
+  color: rgba(255,255,255,.7);
+  padding: 64px 0 0;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.footer-brand .logo-text {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 12px;
+}
+.footer-brand p { font-size: .95rem; margin-bottom: 24px; }
+
+.social-links { display: flex; gap: 12px; }
+.social-links a {
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,.08);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  color: rgba(255,255,255,.7);
+  transition: background var(--trans), color var(--trans), transform var(--trans);
+}
+.social-links a:hover {
+  background: var(--laranja);
+  color: var(--branco);
+  transform: translateY(-3px);
+}
+
+.footer-horario h4,
+.footer-nav h4 {
+  color: var(--branco);
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+.footer-horario ul li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  font-size: .92rem;
+}
+.footer-horario ul li:last-child { border-bottom: none; }
+
+.footer-nav ul li { margin-bottom: 10px; }
+.footer-nav ul li a {
+  font-size: .93rem;
+  transition: color var(--trans);
+}
+.footer-nav ul li a:hover { color: var(--amarelo-claro); }
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px;
+  font-size: .85rem;
+  color: rgba(255,255,255,.35);
+}
+
+/* === BACK TO TOP === */
+#back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  background: var(--laranja);
+  color: var(--branco);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(232,97,26,.4);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity var(--trans), transform var(--trans);
+}
+#back-to-top.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+#back-to-top:hover { background: var(--laranja-hover); transform: translateY(-3px); }
+
+/* === ANIMAÇÕES (SCROLL) === */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeInUp .8s ease forwards;
+}
+.fade-in:nth-child(1) { animation-delay: .1s; }
+.fade-in:nth-child(2) { animation-delay: .25s; }
+.fade-in:nth-child(3) { animation-delay: .4s; }
+.fade-in:nth-child(4) { animation-delay: .55s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 1024px) {
+  .destaques-grid    { grid-template-columns: repeat(2, 1fr); }
+  .servicos-grid     { grid-template-columns: repeat(2, 1fr); }
+  .aces-grid         { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner      { grid-template-columns: 1fr 1fr; }
+  .footer-brand      { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 64px 0; }
+
+  /* Header mobile */
+  .hamburger { display: flex; }
+  #nav {
+    position: fixed;
+    top: 72px; left: 0; right: 0;
+    background: rgba(26,18,8,.98);
+    backdrop-filter: blur(14px);
+    padding: 24px 20px;
+    transform: translateY(-110%);
+    opacity: 0;
+    transition: transform .35s ease, opacity .35s ease;
+  }
+  #nav.open { transform: translateY(0); opacity: 1; }
+  .nav-list { flex-direction: column; gap: 6px; }
+  .nav-link { display: block; padding: 12px 20px; font-size: 1.1rem; }
+
+  /* Hero */
+  .hero-badge { bottom: 20px; right: 20px; width: 76px; height: 76px; }
+
+  /* Sobre */
+  .sobre-grid { grid-template-columns: 1fr; gap: 36px; }
+  .sobre-img img { height: 280px; }
+
+  /* Destaques */
+  .destaques-grid { grid-template-columns: 1fr; }
+
+  /* Serviços */
+  .servicos-grid        { grid-template-columns: 1fr; }
+  .aces-grid            { grid-template-columns: 1fr 1fr; }
+  .ambiente-pagamento   { grid-template-columns: 1fr; }
+
+  /* Contato */
+  .contato-grid { grid-template-columns: 1fr; }
+  .mapa         { height: 280px; }
+
+  /* Footer */
+  .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+  .footer-brand { grid-column: auto; }
+}
+
+@media (max-width: 480px) {
+  .hero-btns     { flex-direction: column; align-items: center; }
+  .aces-grid     { grid-template-columns: 1fr; }
+  .hero-badge    { display: none; }
+}
+  </style>
 </head>
 <body>
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
 
-<nav id="nav">
-  <a href="#" class="nav-logo">Bar Bolas</a>
-  <ul class="nav-menu">
-    <li><a href="#sobre">Nossa História</a></li>
-    <li><a href="#cards">Experiência</a></li>
-    <li><a href="#local">Visitar</a></li>
-  </ul>
-  <a href="#local" class="nav-cta">Como chegar</a>
-</nav>
+  <!-- ===== HEADER ===== -->
+  <header id="header">
+    <div class="container header-inner">
+      <a href="#inicio" class="logo">
+        <span class="logo-icon">🍺</span>
+        <span class="logo-text">Bar Bolas</span>
+      </a>
+      <nav id="nav">
+        <ul class="nav-list">
+          <li><a href="#inicio" class="nav-link">Início</a></li>
+          <li><a href="#sobre" class="nav-link">Sobre</a></li>
+          <li><a href="#servicos" class="nav-link">Serviços</a></li>
+          <li><a href="#depoimentos" class="nav-link">Avaliações</a></li>
+          <li><a href="#contato" class="nav-link">Contato</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">Mongaguá · Litoral Paulista · O bar da cidade</div>
-    <h1 class="hero-h1">
-      <span class="line"><span>Bar</span></span>
-      <span class="line"><span class="gold">Bolas</span></span>
-    </h1>
-    <p class="hero-desc">O ponto de encontro mais querido de Mongaguá. Onde a cerveja é sempre gelada, o ambiente acolhe a todos e cada visita vira memória.</p>
-    <div class="hero-actions">
-      <a href="#sobre" class="btn-primary">
-        <span>Conheça o bar</span>
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a href="#local" class="btn-ghost">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        Ver localização
-      </a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="geo-wrap">
-      <div class="geo-ring"></div>
-      <div class="geo-ring"></div>
-      <div class="geo-ring"></div>
-    </div>
+  <!-- ===== HERO ===== -->
+  <section id="inicio" class="hero">
     <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow fade-in">Bem-vindo ao</p>
+      <h1 class="hero-title fade-in">Bar Bolas</h1>
+      <p class="hero-subtitle fade-in">O ponto certo do seu happy hour 🍻</p>
+      <div class="hero-btns fade-in">
+        <a href="#contato" class="btn btn-primary">Como Chegar</a>
+        <a href="#servicos" class="btn btn-outline">Nossos Serviços</a>
+      </div>
+    </div>
     <div class="hero-badge">
-      <div class="badge-inner">
-        <div class="badge-n">4,5<sup>★</sup></div>
-        <div class="badge-l">#1 Bar<br>Mongaguá</div>
-      </div>
+      <span>Desde</span>
+      <strong>2010</strong>
     </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <div class="scroll-txt">Scroll</div>
-  </div>
-</section>
+  </section>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="ticker-item"><span class="tick-dot"></span>Cerveja gelada</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Ambiente acolhedor</span>
-    <span class="ticker-item"><span class="tick-dot"></span>#1 em Mongaguá</span>
-    <span class="ticker-item"><span class="tick-dot"></span>4,5 estrelas TripAdvisor</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Litoral Paulista</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Tradição e sabor</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Petiscos irresistíveis</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Para toda a família</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Cerveja gelada</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Ambiente acolhedor</span>
-    <span class="ticker-item"><span class="tick-dot"></span>#1 em Mongaguá</span>
-    <span class="ticker-item"><span class="tick-dot"></span>4,5 estrelas TripAdvisor</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Litoral Paulista</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Tradição e sabor</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Petiscos irresistíveis</span>
-    <span class="ticker-item"><span class="tick-dot"></span>Para toda a família</span>
-  </div>
-</div>
-
-<!-- SOBRE -->
-<section class="sobre" id="sobre">
-  <div class="sobre-num">01</div>
-  <div>
-    <div class="stag reveal">Nossa identidade</div>
-    <h2 class="sobre-title reveal d1">Um clássico nascido<br>à beira do <em>litoral</em></h2>
-    <div class="sobre-body reveal d2">
-      <p>O Bar Bolas é mais do que um ponto de encontro — é uma instituição de Mongaguá. Com ambiente descontraído e genuinamente acolhedor, tornou-se referência na cidade como o lugar perfeito para reunir amigos, família e celebrar bons momentos.</p>
-      <p>Localizado no coração de Mongaguá, oferecemos um espaço único onde a tradição do bar brasileiro se encontra com o calor humano da costa paulista. Cerveja bem gelada, boa conversa e um atendimento que faz você querer voltar sempre.</p>
-    </div>
-    <div class="metrics reveal d3">
-      <div class="metric">
-        <div class="metric-val">4,5<sup>★</sup></div>
-        <div class="metric-lbl">TripAdvisor</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val">#1</div>
-        <div class="metric-lbl">Bar em Mongaguá</div>
-      </div>
-      <div class="metric">
-        <div class="metric-val">24+</div>
-        <div class="metric-lbl">Avaliações positivas</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CARDS -->
-<section class="cards-section" id="cards">
-  <div class="cards-head reveal">
-    <div>
-      <div class="stag">Experiência</div>
-      <h2 class="cards-title">O que torna o Bar Bolas<br><em>especial</em></h2>
-    </div>
-    <p class="cards-sub">Cada detalhe pensado para que você volte sempre.</p>
-  </div>
-  <div class="cgrid">
-    <div class="ccard reveal">
-      <span class="ccard-idx">01</span>
-      <span class="ccard-icon">🍺</span>
-      <h3>Cerveja no ponto</h3>
-      <p>Sempre no grau exato de temperatura. Uma boa cerveja gelada é o começo de toda boa história que acontece aqui.</p>
-    </div>
-    <div class="ccard reveal d1">
-      <span class="ccard-idx">02</span>
-      <span class="ccard-icon">🤝</span>
-      <h3>Gente que recebe bem</h3>
-      <p>Um atendimento que parece hospitalidade de verdade. Todo cliente é tratado como alguém especial, sempre.</p>
-    </div>
-    <div class="ccard reveal d2">
-      <span class="ccard-idx">03</span>
-      <span class="ccard-icon">🌊</span>
-      <h3>Perto da praia</h3>
-      <p>Mongaguá, litoral paulista. Perfeito para quem vem curtir o mar e quer um barzinho autêntico de verdade.</p>
-    </div>
-    <div class="ccard reveal d3">
-      <span class="ccard-idx">04</span>
-      <span class="ccard-icon">👨‍👩‍👧</span>
-      <h3>Para toda a família</h3>
-      <p>Casais, grupos de amigos, famílias. O ambiente acolhedor abraça qualquer ocasião com o mesmo carinho.</p>
-    </div>
-    <div class="ccard reveal d4">
-      <span class="ccard-idx">05</span>
-      <span class="ccard-icon">🎵</span>
-      <h3>Boa energia sempre</h3>
-      <p>Aquela vibração autêntica de bar brasileiro. A combinação rara de tranquilidade e animação no lugar certo.</p>
-    </div>
-    <div class="ccard reveal d4">
-      <span class="ccard-idx">06</span>
-      <span class="ccard-icon">⭐</span>
-      <h3>Referência reconhecida</h3>
-      <p>O melhor bar e pub de Mongaguá segundo o TripAdvisor — eleito pelos próprios clientes que viveram a experiência.</p>
-    </div>
-  </div>
-</section>
-
-<!-- REVIEW -->
-<section class="review">
-  <div class="review-inner reveal">
-    <div class="review-stars">
-      <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-    </div>
-    <p class="review-quote">"Um lugar incrível para curtir com amigos e família. Ambiente maravilhoso, atendimento atencioso e exatamente o clima que você espera de um bar de litoral."</p>
-    <div class="review-name">Cliente fiel</div>
-    <div class="review-source">Avaliação verificada · TripAdvisor · Mongaguá</div>
-    <div class="review-sep">
-      <div class="sep-line"></div>
-      <div class="sep-diamond"></div>
-      <div class="sep-line"></div>
-    </div>
-    <div class="review-nums">
-      <div>
-        <div class="rn-val">4,5★</div>
-        <div class="rn-lbl">TripAdvisor</div>
-      </div>
-      <div>
-        <div class="rn-val">#1</div>
-        <div class="rn-lbl">Bares — Mongaguá</div>
-      </div>
-      <div>
-        <div class="rn-val">24+</div>
-        <div class="rn-lbl">Avaliações positivas</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LOCAL -->
-<section class="local" id="local">
-  <div class="local-grid">
-    <div>
-      <div class="stag reveal">Visitar</div>
-      <h2 class="local-title reveal d1">Venha tomar<br>uma <em>conosco</em></h2>
-      <div class="irow reveal d2">
-        <div class="irow-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
-        <div>
-          <div class="irow-lbl">Endereço</div>
-          <div class="irow-val">Mongaguá, São Paulo<br>Litoral Paulista</div>
-        </div>
-      </div>
-      <div class="irow reveal d3">
-        <div class="irow-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <div>
-          <div class="irow-lbl">Horários</div>
-          <div class="irow-val">
-            <table class="hor-table">
-              <tr><td>Segunda a Quinta</td><td>11h – 23h</td></tr>
-              <tr><td>Sexta-feira</td><td>11h – 00h</td></tr>
-              <tr><td>Sábado</td><td>11h – 00h</td></tr>
-              <tr><td>Domingo</td><td>11h – 22h</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="irow reveal d4">
-        <div class="irow-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        <div>
-          <div class="irow-lbl">Avaliações</div>
-          <div class="irow-val">
-            <a href="https://www.tripadvisor.com/Restaurant_Review-g1749025-d5673261-Reviews-Bar_Bolas-Mongagua_State_of_Sao_Paulo.html" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;font-size:.88rem">
-              Ver no TripAdvisor
-              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
+  <!-- ===== SOBRE ===== -->
+  <section id="sobre" class="sobre section">
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-text reveal">
+          <span class="section-tag">Nossa história</span>
+          <h2 class="section-title">Bar Bolas:<br/>um lugar pra chamar de seu</h2>
+          <p>O Bar Bolas nasceu do amor por boa comida, cerveja gelada e companhia agradável. Aqui você encontra os melhores <strong>petiscos e pratos da culinária brasileira</strong>, preparados com ingredientes frescos e muito carinho.</p>
+          <p>Nosso ambiente é <strong>casual e aconchegante</strong>, com mesas na calçada para aquelas noites gostosas e um salão que abraça todo mundo – grupos de amigos, turistas curiosos e universitários que querem relaxar depois de um dia puxado.</p>
+          <div class="sobre-tags">
+            <span><i class="fa-solid fa-users"></i> Grupos</span>
+            <span><i class="fa-solid fa-graduation-cap"></i> Universitários</span>
+            <span><i class="fa-solid fa-earth-americas"></i> Turistas</span>
+            <span><i class="fa-solid fa-baby"></i> Famílias</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="map-wrap reveal d2">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.8!2d-46.6908359!3d-24.1274043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce283d9a29b92d%3A0xf482d68217dc67b8!2sBar%20Bolas!5e0!3m2!1spt-BR!2sbr!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div>
-      <div class="f-logo">Bar Bolas</div>
-      <div class="f-sub">Mongaguá · São Paulo</div>
-      <p class="f-desc">O bar mais querido do litoral paulista. Venha fazer parte da nossa história e criar memórias que ficam.</p>
-    </div>
-    <div>
-      <div class="f-col-title">Navegação</div>
-      <div class="f-links">
-        <a href="#sobre">Nossa História</a>
-        <a href="#cards">Experiência</a>
-        <a href="#local">Localização</a>
-        <a href="#local">Horários</a>
+  <!-- ===== DESTAQUES ===== -->
+  <section class="destaques section">
+    <div class="container">
+      <span class="section-tag center">Por que nos escolher</span>
+      <h2 class="section-title center reveal">O que faz o Bar Bolas<br/>diferente de todos os outros</h2>
+      <div class="destaques-grid">
+        <div class="destaque-card reveal">
+          <div class="destaque-icon"><i class="fa-solid fa-music"></i></div>
+          <h3>Música ao vivo</h3>
+          <p>Toda sexta e sábado com artistas locais incríveis. Do samba ao rock, sempre tem uma boa trilha.</p>
+        </div>
+        <div class="destaque-card reveal">
+          <div class="destaque-icon"><i class="fa-solid fa-tv"></i></div>
+          <h3>Transmissão de esportes</h3>
+          <p>Telões de ponta para você não perder nenhum lance. Futebol, UFC, vôlei – tudo aqui!</p>
+        </div>
+        <div class="destaque-card reveal">
+          <div class="destaque-icon"><i class="fa-solid fa-building"></i></div>
+          <h3>Mesas na cobertura</h3>
+          <p>Vista panorâmica e brisa fresca. O lugar perfeito para um fim de tarde especial.</p>
+        </div>
+        <div class="destaque-card reveal">
+          <div class="destaque-icon"><i class="fa-solid fa-beer-mug-empty"></i></div>
+          <h3>Ótima seleção de cervejas</h3>
+          <p>Mais de 40 rótulos nacionais e importados, sempre geladas do jeito que você merece.</p>
+        </div>
+        <div class="destaque-card reveal">
+          <div class="destaque-icon"><i class="fa-solid fa-martini-glass-citrus"></i></div>
+          <h3>Coquetéis especiais</h3>
+          <p>Drinks autorais criados pelos nossos bartenders. Da caipirinha clássica ao coquetel da casa.</p>
+        </div>
+        <div class="destaque-card reveal">
+          <div class="destaque-icon"><i class="fa-solid fa-utensils"></i></div>
+          <h3>Petiscos irresistíveis</h3>
+          <p>Do bolinho de bacalhau ao dadinho de tapioca, os petiscos do Bar Bolas são lenda na cidade.</p>
+        </div>
       </div>
     </div>
-    <div>
-      <div class="f-col-title">Reconhecimentos</div>
-      <div class="f-links">
-        <a href="https://www.tripadvisor.com/Restaurant_Review-g1749025-d5673261-Reviews-Bar_Bolas-Mongagua_State_of_Sao_Paulo.html" target="_blank" rel="noopener">#1 Bar em Mongaguá</a>
-        <a href="https://www.tripadvisor.com/Restaurant_Review-g1749025-d5673261-Reviews-Bar_Bolas-Mongagua_State_of_Sao_Paulo.html" target="_blank" rel="noopener">4,5 ★ no TripAdvisor</a>
-        <a href="https://www.tripadvisor.com/Restaurant_Review-g1749025-d5673261-Reviews-Bar_Bolas-Mongagua_State_of_Sao_Paulo.html" target="_blank" rel="noopener">24+ avaliações</a>
+  </section>
+
+  <!-- ===== DEPOIMENTOS ===== -->
+  <section id="depoimentos" class="depoimentos section">
+    <div class="container">
+      <span class="section-tag center">Depoimentos</span>
+      <h2 class="section-title center reveal">O que nossos clientes dizem</h2>
+      <div class="depoimentos-grid">
+        <div class="depoimento-card reveal">
+          <div class="depoimento-header">
+            <div class="depoimento-avatar">JS</div>
+            <div class="depoimento-info">
+              <h4>João Silva</h4>
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p>"Melhor happy hour de Mongaguá! A cerveja está sempre trincando e os petiscos são maravilhosos. O bolinho de bacalhau é imperdível."</p>
+        </div>
+        <div class="depoimento-card reveal">
+          <div class="depoimento-header">
+            <div class="depoimento-avatar">MA</div>
+            <div class="depoimento-info">
+              <h4>Maria de Andrade</h4>
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+          <p>"Ambiente super agradável e música de qualidade. Excelente lugar para ir com os amigos. O atendimento é nota dez!"</p>
+        </div>
+        <div class="depoimento-card reveal">
+          <div class="depoimento-header">
+            <div class="depoimento-avatar">RC</div>
+            <div class="depoimento-info">
+              <h4>Ricardo Costa</h4>
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p>"Sou cliente fiel desde 2015. É o lugar perfeito para relaxar depois do trabalho. Preço justo e qualidade impecável em tudo."</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <p class="f-copy">© 2025 Bar Bolas · Mongaguá, São Paulo · Todos os direitos reservados</p>
-    <div class="f-trip"><strong>4,5 ★</strong> no TripAdvisor</div>
-  </div>
-</footer>
+  </section>
 
-<script>
-const cursor=document.getElementById('cursor');
-const ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cursor.style.left=mx+'px';cursor.style.top=my+'px';
-});
-(function tick(){
-  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(tick);
+  <!-- ===== SERVIÇOS ===== -->
+  <section id="servicos" class="servicos section">
+    <div class="container">
+      <span class="section-tag center">Comodidade pra você</span>
+      <h2 class="section-title center reveal">Nossos serviços</h2>
+      <div class="servicos-grid">
+        <div class="servico-card reveal">
+          <i class="fa-solid fa-chair"></i>
+          <h3>Mesas externas</h3>
+          <p>Aproveite a brisa e o movimento da rua nas nossas mesas na calçada.</p>
+        </div>
+        <div class="servico-card reveal">
+          <i class="fa-solid fa-motorcycle"></i>
+          <h3>Delivery</h3>
+Peça por aplicativo de delivery ou telefone.
+        </div>
+        <div class="servico-card reveal">
+          <i class="fa-solid fa-hand-sparkles"></i>
+          <h3>Entrega sem contato</h3>
+          <p>Opção de entrega sem contato disponível. Segurança em primeiro lugar.</p>
+        </div>
+        <div class="servico-card reveal">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <h3>Para viagem</h3>
+          <p>Embalagem especial para você curtir a comida do Bar Bolas em qualquer lugar.</p>
+        </div>
+        <div class="servico-card reveal">
+          <i class="fa-solid fa-store"></i>
+          <h3>Consumo no local</h3>
+          <p>Mesa reservada... brincadeira! Chegou, senta. É assim que gostamos.</p>
+        </div>
+        <div class="servico-card sem-reserva reveal">
+          <i class="fa-solid fa-calendar-xmark"></i>
+          <h3>Sem reservas</h3>
+          <p>Não aceitamos reservas. Chega, a gente dá um jeito. Quase sempre tem mesa!</p>
+        </div>
+      </div>
+
+      <!-- Acessibilidade -->
+      <div class="acessibilidade reveal">
+        <h3><i class="fa-solid fa-wheelchair"></i> Acessibilidade</h3>
+        <div class="aces-grid">
+          <span><i class="fa-solid fa-check"></i> Entrada acessível</span>
+          <span><i class="fa-solid fa-check"></i> Banheiro acessível</span>
+          <span><i class="fa-solid fa-check"></i> Assentos acessíveis</span>
+          <span><i class="fa-solid fa-check"></i> Estacionamento acessível</span>
+        </div>
+      </div>
+
+      <!-- Ambiente -->
+      <div class="ambiente-pagamento reveal">
+        <div class="ambiente-box">
+          <h3><i class="fa-solid fa-couch"></i> Ambiente</h3>
+          <div class="tags-row">
+            <span>Aconchegante</span>
+            <span>Casual</span>
+            <span>Tranquilo</span>
+            <span>Moderno</span>
+            <span>Bom para crianças</span>
+          </div>
+        </div>
+        <div class="pagamento-box">
+          <h3><i class="fa-solid fa-credit-card"></i> Pagamentos</h3>
+          <div class="tags-row">
+            <span><i class="fa-brands fa-cc-visa"></i> Crédito/Débito</span>
+            <span><i class="fa-solid fa-nfc-symbol"></i> NFC/Aproximação</span>
+            <span>Alelo</span>
+            <span>Pluxee</span>
+            <span>PIX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTATO ===== -->
+  <section id="contato" class="contato section">
+    <div class="container">
+      <span class="section-tag center">Venha nos visitar</span>
+      <h2 class="section-title center reveal">Onde estamos</h2>
+      <div class="contato-grid">
+        <div class="contato-info reveal">
+          <div class="info-card">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <h4>Endereço</h4>
+              <p>Av. Nossa Sra. de Fátima, 532 – Balneário Agenor de Campos<br/>Mongaguá – SP, 11730-000</p>
+              <small><i class="fa-solid fa-triangle-exclamation"></i> Estacionamento com vagas limitadas</small>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <h4>Telefone</h4>
+              <p>(19) 3456-7890</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+              <h4>Horários</h4>
+              <table class="horario-table">
+                <tr><td>Seg – Sex</td><td>07h – 00h</td></tr>
+                <tr><td>Sábado</td><td>08h – 02h</td></tr>
+                <tr><td>Domingo</td><td>10h – 22h</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="mapa reveal">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.8!2d-46.6908359!3d-24.1274043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce283d9a29b92d%3A0xf482d68217dc67b8!2sBar+Bolas!5e0!3m2!1spt-BR!2sbr!4v1700000000001"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Localização do Bar do Bolas">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text">🍺 Bar Bolas</span>
+        <p>O ponto certo do seu happy hour.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+
+        </div>
+      </div>
+      <div class="footer-horario">
+        <h4>Horário de funcionamento</h4>
+        <ul>
+          <li><span>Segunda a Sexta</span><span>07h – 00h</span></li>
+          <li><span>Sábado</span><span>08h – 02h</span></li>
+          <li><span>Domingo</span><span>10h – 22h</span></li>
+          <li><span>Feriados</span><span>10h – 22h</span></li>
+        </ul>
+      </div>
+      <div class="footer-nav">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#depoimentos">Avaliações</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Bar Bolas. Todos os direitos reservados. | Feito com 🍺 e muito carinho.</p>
+    </div>
+  </footer>
+
+  <!-- Botão voltar ao topo -->
+  <button id="back-to-top" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <script>
+/* ========================================
+   BAR BOLAS – script.js
+======================================== */
+
+'use strict';
+
+/* ===== 1. MENU HAMBÚRGUER ===== */
+(function () {
+  const hamburger = document.getElementById('hamburger');
+  const nav       = document.getElementById('nav');
+  const navLinks  = document.querySelectorAll('.nav-link');
+
+  if (!hamburger || !nav) return;
+
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    nav.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = nav.classList.contains('open');
+    toggleMenu(!isOpen);
+  });
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+      toggleMenu(false);
+    }
+  });
 })();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    cursor.style.width='3px';cursor.style.height='3px';
-    ring.style.width='52px';ring.style.height='52px';
-    ring.style.borderColor='rgba(184,137,58,.7)';
+
+
+/* ===== 2. HEADER COM SCROLL ===== */
+(function () {
+  const header = document.getElementById('header');
+  if (!header) return;
+
+  function updateHeader() {
+    if (window.scrollY > 60) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+})();
+
+
+/* ===== 3. BOTÃO "VOLTAR AO TOPO" ===== */
+(function () {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-  el.addEventListener('mouseleave',()=>{
-    cursor.style.width='8px';cursor.style.height='8px';
-    ring.style.width='36px';ring.style.height='36px';
-    ring.style.borderColor='rgba(184,137,58,.35)';
+})();
+
+
+/* ===== 4. ANIMAÇÕES AO ROLAR (REVEAL) ===== */
+(function () {
+  const elements = document.querySelectorAll('.reveal');
+  if (!elements.length) return;
+
+  function applyDelays() {
+    const grids = document.querySelectorAll(
+      '.destaques-grid, .servicos-grid, .contato-grid, .depoimentos-grid'
+    );
+    grids.forEach(grid => {
+      const items = grid.querySelectorAll('.reveal');
+      items.forEach((item, i) => {
+        item.style.transitionDelay = (i * 0.08) + 's';
+      });
+    });
+  }
+  applyDelays();
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  elements.forEach(el => observer.observe(el));
+})();
+
+
+/* ===== 5. SCROLL SUAVE PARA LINKS ÂNCORA ===== */
+(function () {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetSelector = this.getAttribute('href');
+      if (targetSelector === '#') return;
+
+      const target = document.querySelector(targetSelector);
+      if (!target) return;
+
+      e.preventDefault();
+      const headerH = document.getElementById('header')?.offsetHeight || 72;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerH;
+
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
   });
+})();
+
+
+/* ===== 6. LINK ATIVO NO MENU CONFORME SEÇÃO VISÍVEL ===== */
+(function () {
+  const sections  = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('.nav-link');
+  if (!sections.length || !navLinks.length) return;
+
+  function setActive() {
+    const scrollY  = window.scrollY;
+    const headerH  = document.getElementById('header')?.offsetHeight || 72;
+
+    let currentId = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - headerH - 40;
+      if (scrollY >= top) currentId = section.id;
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentId) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+
+
+/* ===== 7. EFEITO PARALLAX SUAVE NO HERO ===== */
+(function () {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  if (window.matchMedia('(max-width: 768px)').matches) return;
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    hero.style.backgroundPositionY = (scrollY * 0.4) + 'px';
+  }, { passive: true });
+})();
+
+
+/* ===== 8. INICIALIZAÇÃO ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('%c🍺 Bar do Bolas', 'font-size:2rem; color:#E8611A; font-weight:bold');
+  console.log('%cSite carregado com sucesso! Bom proveito 🎉', 'color:#F5A623');
 });
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('compact',scrollY>80));
-const revs=document.querySelectorAll('.reveal');
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});
-},{threshold:.1});
-revs.forEach(el=>obs.observe(el));
-</script>
+  </script>
 </body>
 </html>
