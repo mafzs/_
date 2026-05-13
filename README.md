@@ -709,5 +709,6 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
