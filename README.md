@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -138,21 +138,7 @@ ul { list-style: none; }
   transform: translateY(-2px);
 }
 
-.btn-whatsapp {
-  background: var(--verde-wa);
-  color: var(--branco);
-  padding: 10px 22px;
-  border-radius: 50px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform var(--trans), box-shadow var(--trans);
-}
-.btn-whatsapp:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37,211,102,.4);
-}
+
 
 /* === HEADER === */
 #header {
@@ -981,15 +967,7 @@ ul { list-style: none; }
               <p>(19) 3456-7890</p>
             </div>
           </div>
-          <div class="info-card">
-            <i class="fa-brands fa-whatsapp"></i>
-            <div>
-              <h4>WhatsApp</h4>
-              <a href="https://wa.me/5519912345678" class="btn btn-whatsapp" target="_blank" rel="noopener">
-                <i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp
-              </a>
-            </div>
-          </div>
+
           <div class="info-card">
             <i class="fa-solid fa-clock"></i>
             <div>
